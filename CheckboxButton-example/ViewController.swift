@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CheckboxButton
 
 class ViewController: UIViewController {
 
@@ -20,6 +21,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func didPressCheckbox(sender: CheckboxButton) {
+        sender.selected = !sender.selected
+    }
 }
-

@@ -24,6 +24,9 @@
                                     <constraint firstAttribute="width" constant="44" id="TKd-Xs-cg0"/>
                                     <constraint firstAttribute="height" constant="44" id="gT3-sl-0gq"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="didPressCheckbox:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qvu-M3-gD1"/>
+                                </connections>
                             </button>
                         </subviews>
                         <animations/>

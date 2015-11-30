@@ -18,6 +18,8 @@
 		CFBAD3EB1C0BECBE003697B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFBAD3E91C0BECBE003697B2 /* LaunchScreen.storyboard */; };
 		CFBAD3F61C0BECBE003697B2 /* CheckboxButton_exampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAD3F51C0BECBE003697B2 /* CheckboxButton_exampleTests.swift */; };
 		CFBAD4011C0BECBE003697B2 /* CheckboxButton_exampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBAD4001C0BECBE003697B2 /* CheckboxButton_exampleUITests.swift */; };
+		CFBAD40D1C0BFB52003697B2 /* CheckboxButton.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFBAD3BE1C0BE9E3003697B2 /* CheckboxButton.framework */; };
+		CFBAD40E1C0BFB52003697B2 /* CheckboxButton.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CFBAD3BE1C0BE9E3003697B2 /* CheckboxButton.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +44,28 @@
 			remoteGlobalIDString = CFBAD3DD1C0BECBE003697B2;
 			remoteInfo = "CheckboxButton-example";
 		};
+		CFBAD40F1C0BFB52003697B2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CFBAD3B51C0BE9E3003697B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CFBAD3BD1C0BE9E3003697B2;
+			remoteInfo = CheckboxButton;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CFBAD4111C0BFB52003697B2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CFBAD40E1C0BFB52003697B2 /* CheckboxButton.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		CFBAD3BE1C0BE9E3003697B2 /* CheckboxButton.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CheckboxButton.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFBAD40D1C0BFB52003697B2 /* CheckboxButton.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,10 +262,12 @@
 				CFBAD3DA1C0BECBE003697B2 /* Sources */,
 				CFBAD3DB1C0BECBE003697B2 /* Frameworks */,
 				CFBAD3DC1C0BECBE003697B2 /* Resources */,
+				CFBAD4111C0BFB52003697B2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				CFBAD4101C0BFB52003697B2 /* PBXTargetDependency */,
 			);
 			name = "CheckboxButton-example";
 			productName = "CheckboxButton-example";
@@ -436,6 +462,11 @@
 			target = CFBAD3DD1C0BECBE003697B2 /* CheckboxButton-example */;
 			targetProxy = CFBAD3FD1C0BECBE003697B2 /* PBXContainerItemProxy */;
 		};
+		CFBAD4101C0BFB52003697B2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CFBAD3BD1C0BE9E3003697B2 /* CheckboxButton */;
+			targetProxy = CFBAD40F1C0BFB52003697B2 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -608,6 +639,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "CheckboxButton-example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.chrisamanse.CheckboxButton-example";
@@ -619,6 +651,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "CheckboxButton-example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.chrisamanse.CheckboxButton-example";
