@@ -103,6 +103,13 @@ public class CheckboxButton: UIButton {
         layer.addSublayer(checkLayer)
     }
     
+    // MARK: Layout
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        layoutLayers()
+    }
+    
     // MARK: Layout layers
     private func layoutLayers() {
         boxLayer.frame = bounds
