@@ -12,33 +12,46 @@ import UIKit
 public class CheckboxButton: UIButton {
     // MARK: Inspectable properties
     
+    /// Line width for the check mark. Default value is 2.
     @IBInspectable public var checkLineWidth: CGFloat = 2.0 {
         didSet {
             layoutLayers()
         }
     }
+    
+    /// Color for the check mark. Default color is `UIColor.blackColor()`.
     @IBInspectable public var checkColor: UIColor = UIColor.blackColor() {
         didSet {
             colorLayers()
         }
     }
     
+    /// Line width for the bounding container of the check mark.
+    /// Default value is 2.
     @IBInspectable public var containerLineWidth: CGFloat = 2.0 {
         didSet {
             layoutLayers()
         }
     }
+    
+    /// Color for the bounding container of the check mark.
+    /// Default color is `UIColor.blackColor()`.
     @IBInspectable public var containerColor: UIColor = UIColor.blackColor() {
         didSet {
             colorLayers()
         }
     }
     
+    /// If set to `true`, the bounding container of the check mark will be a circle rather than a box.
+    /// Default value is false
     @IBInspectable public var circular: Bool = false {
         didSet {
             layoutLayers()
         }
     }
+    
+    /// If set to `true`, the container gets a fill color similar to the `containerColor` property.
+    /// Default value is `false`.
     @IBInspectable public var containerFillsOnSelected: Bool = false {
         didSet {
             colorLayers()
@@ -116,6 +129,18 @@ public class CheckboxButton: UIButton {
         customInitialization()
     }
     
+    /**
+     Initializes a new `CheckboxButton` with a selected state.
+     
+     - Parameters:
+       - frame: Frame of the receiver
+       - selected: Selected state of the receiver
+    */
+    convenience init(frame: CGRect, selected: Bool) {
+        self.init(frame: frame)
+        self.selected = selected
+    }
+    
     func customInitialization() {
         // Initial colors
         checkLayer.fillColor = UIColor.clearColor().CGColor
@@ -172,6 +197,8 @@ public class CheckboxButton: UIButton {
     
     // MARK: Interface builder
     public override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        
         customInitialization()
     }
 }
