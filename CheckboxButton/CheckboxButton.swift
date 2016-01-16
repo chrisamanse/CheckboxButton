@@ -10,11 +10,46 @@ import UIKit
 
 @IBDesignable
 public class CheckboxButton: UIButton {
+    // MARK: Inspectable properties
+    
+    @IBInspectable public var checkLineWidth: CGFloat = 2.0 {
+        didSet {
+            layoutLayers()
+        }
+    }
+    @IBInspectable public var checkColor: UIColor = UIColor.blackColor() {
+        didSet {
+            colorLayers()
+        }
+    }
+    
+    @IBInspectable public var containerLineWidth: CGFloat = 2.0 {
+        didSet {
+            layoutLayers()
+        }
+    }
+    @IBInspectable public var containerColor: UIColor = UIColor.blackColor() {
+        didSet {
+            colorLayers()
+        }
+    }
+    
+    @IBInspectable public var circular: Bool = false {
+        didSet {
+            layoutLayers()
+        }
+    }
+    @IBInspectable public var containerFillsOnSelected: Bool = false {
+        didSet {
+            colorLayers()
+        }
+    }
+    
     // MARK: Box and check properties
-    let boxLayer = CAShapeLayer()
+    let containerLayer = CAShapeLayer()
     let checkLayer = CAShapeLayer()
     
-    var boxFrame: CGRect {
+    var containerFrame: CGRect {
         let width = bounds.width
         let height = bounds.height
         
@@ -32,16 +67,27 @@ public class CheckboxButton: UIButton {
             y = (height - sideLength) / 2
         }
         
-        let halfLineWidth = boxLineWidth / 2
-        return CGRect(x: x + halfLineWidth, y: y + halfLineWidth, width: sideLength - boxLineWidth, height: sideLength - boxLineWidth)
+        let halfLineWidth = containerLineWidth / 2
+        return CGRect(x: x + halfLineWidth, y: y + halfLineWidth, width: sideLength - containerLineWidth, height: sideLength - containerLineWidth)
     }
     
-    var boxPath: UIBezierPath {
-        return UIBezierPath(rect: boxFrame)
+    var containerPath: UIBezierPath {
+        if circular {
+            return UIBezierPath(ovalInRect: containerFrame)
+        } else {
+            return UIBezierPath(rect: containerFrame)
+        }
     }
     var checkPath: UIBezierPath {
-        let inset = (boxLineWidth + checkLineWidth) / 2
-        let innerRect = CGRectInset(boxFrame, inset, inset)
+        let containerFrame = self.containerFrame
+        
+        // Add an offset for circular checkbox
+        let offset = circular ? CGFloat(1.0 / 8) * containerFrame.width : 0
+        let inset = ((containerLineWidth + checkLineWidth) / 2) + offset
+        var innerRect = CGRectInset(containerFrame, inset, inset)
+        innerRect.origin = CGPoint(x: innerRect.origin.x, y: innerRect.origin.y + (offset / 4))
+        
+        // Create check path
         let path = UIBezierPath()
         
         let unit = innerRect.width / 8
@@ -54,28 +100,6 @@ public class CheckboxButton: UIButton {
         path.addLineToPoint(CGPoint(x: x + unit * 7, y: y + unit))
         
         return path
-    }
-    
-    // MARK: Inspectable properties
-    @IBInspectable public var boxLineWidth: CGFloat = 2.0 {
-        didSet {
-            layoutLayers()
-        }
-    }
-    @IBInspectable public var checkLineWidth: CGFloat = 2.0 {
-        didSet {
-            layoutLayers()
-        }
-    }
-    @IBInspectable public var boxLineColor: UIColor = UIColor.blackColor() {
-        didSet {
-            colorLayers()
-        }
-    }
-    @IBInspectable public var checkLineColor: UIColor = UIColor.blackColor() {
-        didSet {
-            colorLayers()
-        }
     }
     
     // MARK: Initialization
@@ -93,13 +117,15 @@ public class CheckboxButton: UIButton {
     }
     
     func customInitialization() {
-        boxLayer.fillColor = UIColor.clearColor().CGColor
+        // Initial colors
         checkLayer.fillColor = UIColor.clearColor().CGColor
         
+        // Color and layout layers
         colorLayers()
         layoutLayers()
         
-        layer.addSublayer(boxLayer)
+        // Add layers
+        layer.addSublayer(containerLayer)
         layer.addSublayer(checkLayer)
     }
     
@@ -107,14 +133,16 @@ public class CheckboxButton: UIButton {
     public override func layoutSubviews() {
         super.layoutSubviews()
         
+        // Also layout the layers when laying out subviews
         layoutLayers()
     }
     
     // MARK: Layout layers
     private func layoutLayers() {
-        boxLayer.frame = bounds
-        boxLayer.lineWidth = boxLineWidth
-        boxLayer.path = boxPath.CGPath
+        // Set frames, line widths and paths for layers
+        containerLayer.frame = bounds
+        containerLayer.lineWidth = containerLineWidth
+        containerLayer.path = containerPath.CGPath
         
         checkLayer.frame = bounds
         checkLayer.lineWidth = checkLineWidth
@@ -123,8 +151,16 @@ public class CheckboxButton: UIButton {
     
     // MARK: Color layers
     private func colorLayers() {
-        boxLayer.strokeColor = boxLineColor.CGColor
-        checkLayer.strokeColor = selected ? checkLineColor.CGColor : UIColor.clearColor().CGColor
+        containerLayer.strokeColor = containerColor.CGColor
+        
+        // Set colors based on selection
+        if selected {
+            containerLayer.fillColor = containerFillsOnSelected ? containerColor.CGColor : UIColor.clearColor().CGColor
+            checkLayer.strokeColor = checkColor.CGColor
+        } else {
+            containerLayer.fillColor = UIColor.clearColor().CGColor
+            checkLayer.strokeColor = UIColor.clearColor().CGColor
+        }
     }
     
     // MARK: Selection
