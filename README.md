@@ -7,7 +7,7 @@ A checkbox button UI component for iOS built in Swift.
 ![CheckboxButton image](./Images/CheckboxButton.png)
 
 **`CheckboxButton`**
-  - A subclass of `UIButton`. The rectangular square box is simply drawn on top of the button. The square box will fit the frame of the button while maintaining its aspect ratio.
+  - A subclass of `UIButton`. The rectangular square box container (or circle) is simply drawn on top of the button. The container will fit the frame of the button while maintaining its aspect ratio.
 
 # Installation
 
@@ -24,11 +24,11 @@ This project can be installed in different ways:
     2. Add a Cartfile in your project directory if you don't have one yet
     3. Then add the line `github "chrisamanse/CheckboxButton"` in your Cartfile
     4. Run `carthage update`
-    5. Follow [Carthage](https://github.com/carthage/carthage) instructions to incorporate the frameworks that Carthage built
+    5. Follow [Carthage](https://github.com/carthage/carthage) instructions to use the frameworks that Carthage built
 
 # Usage
 
-`RadioButton` can be used in two different ways:
+`CheckboxButton` can be used in two different ways:
   - Interface Builder
     - Simply change the class of the `UIButton` to `CheckboxButton`.
   - Code
