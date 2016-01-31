@@ -20,8 +20,10 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    @IBAction func didPressCheckbox(sender: CheckboxButton) {
-        sender.selected = !sender.selected
+    
+    @IBAction func didToggleCheckboxButton(sender: CheckboxButton) {
+        let state = sender.on ? "ON" : "OFF"
+        
+        print("CheckboxButton: did turn \(state)")
     }
 }

@@ -17,28 +17,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ez-LH-SSM" customClass="CheckboxButton" customModule="CheckboxButton">
-                                <rect key="frame" x="278" y="278" width="44" height="44"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zSA-qX-PDz" customClass="CheckboxButton" customModule="CheckboxButton">
+                                <rect key="frame" x="285" y="285" width="30" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="44" id="TKd-Xs-cg0"/>
-                                    <constraint firstAttribute="height" constant="44" id="gT3-sl-0gq"/>
+                                    <constraint firstAttribute="width" constant="30" id="PCE-3N-QGX"/>
+                                    <constraint firstAttribute="height" constant="30" id="YhT-wJ-gj0"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circular" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="checkColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="containerFillsOnSelected" value="YES"/>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="didPressCheckbox:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qvu-M3-gD1"/>
+                                    <action selector="didToggleCheckboxButton:" destination="BYZ-38-t0r" eventType="valueChanged" id="3Tf-Yf-L5v"/>
                                 </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="7ez-LH-SSM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OIg-3h-rTK"/>
-                            <constraint firstItem="7ez-LH-SSM" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="dvu-EH-vEk"/>
+                            <constraint firstItem="zSA-qX-PDz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pLu-HK-h2j"/>
+                            <constraint firstItem="zSA-qX-PDz" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="yyL-4n-3YE"/>
                         </constraints>
                     </view>
                 </viewController>
