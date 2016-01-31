@@ -1,5 +1,5 @@
 # CheckboxButton
-[![Build Status](https://travis-ci.org/chrisamanse/CheckboxButton.svg)](https://travis-ci.org/chrisamanse/CheckboxButton) 
+[![Build Status](https://travis-ci.org/chrisamanse/CheckboxButton.svg)](https://travis-ci.org/chrisamanse/CheckboxButton)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 A checkbox button UI component for iOS built in Swift.
@@ -7,24 +7,20 @@ A checkbox button UI component for iOS built in Swift.
 ![CheckboxButton image](./Images/CheckboxButton.png)
 
 **`CheckboxButton`**
-  - A subclass of `UIButton`. The rectangular square box container (or circle) is simply drawn on top of the button. The container will fit the frame of the button while maintaining its aspect ratio.
+  - A subclass of `UIControl`. The container will fit the frame of the control while maintaining its aspect ratio.
 
 # Installation
 
 This project can be installed in different ways:
   - Manual
     1. Download the project
-    2. Simply copy the `CheckboxButton.swift` to your project
+    2. Simply copy `CheckboxButton.swift` to your project
   - Framework
     1. Download the project
     2. Build the **CheckboxButton** framework
     3. Embed the framework into your project
-  - Carthage
-    1. Install [Carthage](https://github.com/carthage/carthage) in your system if you don't have it yet
-    2. Add a Cartfile in your project directory if you don't have one yet
-    3. Then add the line `github "chrisamanse/CheckboxButton"` in your Cartfile
-    4. Run `carthage update`
-    5. Follow [Carthage](https://github.com/carthage/carthage) instructions to use the frameworks that Carthage built
+  - [Carthage](https://github.com/carthage/carthage)
+    1. Add `github "chrisamanse/CheckboxButton"` in your Cartfile
 
 # Usage
 
@@ -36,8 +32,25 @@ This project can be installed in different ways:
 
 You can run the example app located in the same project to see how it's used.
 
+## Toggle
+
+`CheckboxButton` will be toggled when a `.TouchedUpInside` event occurred. You can observe changes in state using the `UIControlEvents.ValueChanged` event.
+
+You can check if the checkbox is toggled by reading the `on` property. You can also set this property to programmatically set the state of the checkbox.
+
+```swift
+
+if checkbox.on {
+  print("Checkbox is checked")
+}
+
+// Toggle
+checkbox.on = false // Set to false to uncheck
+
+```
+
 # License
 
-Copyright (c) 2015 Joe Christopher Paul Amanse
+Copyright (c) 2016 Joe Christopher Paul Amanse
 
 This software is distributed under the [MIT License](./LICENSE).
