@@ -103,22 +103,20 @@ public class CheckboxButton: UIControl {
         let containerFrame = self.containerFrame
         
         // Add an offset for circular checkbox
-        let offset = circular ? CGFloat(1.0 / 8) * containerFrame.width : 0
-        let inset = ((containerLineWidth + checkLineWidth) / 2) + offset
-        var innerRect = CGRectInset(containerFrame, inset, inset)
-        innerRect.origin = CGPoint(x: innerRect.origin.x, y: innerRect.origin.y + (offset / 4))
+        let inset = containerLineWidth / 2
+        let innerRect = CGRectInset(containerFrame, inset, inset)
         
         // Create check path
         let path = UIBezierPath()
         
-        let unit = innerRect.width / 8
+        let unit = innerRect.width / 33
         let origin = innerRect.origin
         let x = origin.x
         let y = origin.y
         
-        path.moveToPoint(CGPoint(x: x + unit, y: y + unit * 5))
-        path.addLineToPoint(CGPoint(x: x + unit * 3, y: y + unit * 7))
-        path.addLineToPoint(CGPoint(x: x + unit * 7, y: y + unit))
+        path.moveToPoint(CGPoint(x: x + (7 * unit), y: y + (18 * unit)))
+        path.addLineToPoint(CGPoint(x: x + (14 * unit), y: y + (25 * unit)))
+        path.addLineToPoint(CGPoint(x: x + (27 * unit), y: y + (10 * unit)))
         
         return path
     }
