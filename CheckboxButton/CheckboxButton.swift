@@ -9,8 +9,8 @@
 import UIKit
 
 @IBDesignable
-public class CheckboxButton: UIButton {
-    // MARK: Inspectable properties
+public class CheckboxButton: UIControl {
+    // MARK: Public properties
     
     /// Line width for the check mark. Default value is 2.
     @IBInspectable public var checkLineWidth: CGFloat = 2.0 {
@@ -52,17 +52,25 @@ public class CheckboxButton: UIButton {
     
     /// If set to `true`, the container gets a fill color similar to the `containerColor` property.
     /// Default value is `false`.
-    @IBInspectable public var containerFillsOnSelected: Bool = false {
+    @IBInspectable public var containerFillsOnToggleOn: Bool = false {
         didSet {
             colorLayers()
         }
     }
     
-    // MARK: Box and check properties
-    let containerLayer = CAShapeLayer()
-    let checkLayer = CAShapeLayer()
+    /// A Boolean value that determines the off/on state of the checkbox. If `true`, the checkbox is checked.
+    @IBInspectable public var on: Bool = false {
+        didSet {
+            colorLayers()
+        }
+    }
     
-    var containerFrame: CGRect {
+    // MARK: Internal and private properties
+    
+    internal let containerLayer = CAShapeLayer()
+    internal let checkLayer = CAShapeLayer()
+    
+    internal var containerFrame: CGRect {
         let width = bounds.width
         let height = bounds.height
         
@@ -84,14 +92,14 @@ public class CheckboxButton: UIButton {
         return CGRect(x: x + halfLineWidth, y: y + halfLineWidth, width: sideLength - containerLineWidth, height: sideLength - containerLineWidth)
     }
     
-    var containerPath: UIBezierPath {
+    internal var containerPath: UIBezierPath {
         if circular {
             return UIBezierPath(ovalInRect: containerFrame)
         } else {
             return UIBezierPath(rect: containerFrame)
         }
     }
-    var checkPath: UIBezierPath {
+    internal var checkPath: UIBezierPath {
         let containerFrame = self.containerFrame
         
         // Add an offset for circular checkbox
@@ -115,6 +123,8 @@ public class CheckboxButton: UIButton {
         return path
     }
     
+    static internal let validBoundsOffset: CGFloat = 80
+    
     // MARK: Initialization
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -130,15 +140,15 @@ public class CheckboxButton: UIButton {
     }
     
     /**
-     Initializes a new `CheckboxButton` with a selected state.
+     Initializes a new `CheckboxButton` with a set state.
      
      - Parameters:
-       - frame: Frame of the receiver
-       - selected: Selected state of the receiver
-    */
-    convenience init(frame: CGRect, selected: Bool) {
+     - frame: Frame of the receiver
+     - on: On state of the receiver
+     */
+    convenience init(frame: CGRect, on: Bool) {
         self.init(frame: frame)
-        self.selected = selected
+        self.on = on
     }
     
     func customInitialization() {
@@ -178,9 +188,9 @@ public class CheckboxButton: UIButton {
     private func colorLayers() {
         containerLayer.strokeColor = containerColor.CGColor
         
-        // Set colors based on selection
-        if selected {
-            containerLayer.fillColor = containerFillsOnSelected ? containerColor.CGColor : UIColor.clearColor().CGColor
+        // Set colors based on 'on' property
+        if on {
+            containerLayer.fillColor = containerFillsOnToggleOn ? containerColor.CGColor : UIColor.clearColor().CGColor
             checkLayer.strokeColor = checkColor.CGColor
         } else {
             containerLayer.fillColor = UIColor.clearColor().CGColor
@@ -188,10 +198,33 @@ public class CheckboxButton: UIButton {
         }
     }
     
-    // MARK: Selection
-    public override var selected: Bool {
-        didSet {
-            colorLayers()
+    // MARK: Touch tracking
+    
+    public override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
+        super.beginTrackingWithTouch(touch, withEvent: event)
+        
+        return true
+    }
+    
+    public override func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
+        super.continueTrackingWithTouch(touch, withEvent: event)
+        
+        return true
+    }
+    
+    public override func endTrackingWithTouch(touch: UITouch?, withEvent event: UIEvent?) {
+        super.endTrackingWithTouch(touch, withEvent: event)
+        
+        guard let touchLocationInView = touch?.locationInView(self) else {
+            return
+        }
+        
+        let offset = self.dynamicType.validBoundsOffset
+        let validBounds = CGRect(x: bounds.origin.x - offset, y: bounds.origin.y - offset, width: bounds.width + (2 * offset), height: bounds.height + (2 * offset))
+        
+        if validBounds.contains(touchLocationInView) {
+            on = !on
+            sendActionsForControlEvents([UIControlEvents.ValueChanged])
         }
     }
     
