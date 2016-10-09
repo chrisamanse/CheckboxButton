@@ -21,7 +21,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func didToggleCheckboxButton(sender: CheckboxButton) {
+    @IBAction func didToggleCheckboxButton(_ sender: CheckboxButton) {
         let state = sender.on ? "ON" : "OFF"
         
         print("CheckboxButton: did turn \(state)")

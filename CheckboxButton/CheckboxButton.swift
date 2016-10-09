@@ -9,18 +9,18 @@
 import UIKit
 
 @IBDesignable
-public class CheckboxButton: UIControl {
+open class CheckboxButton: UIControl {
     // MARK: Public properties
     
     /// Line width for the check mark. Default value is 2.
-    @IBInspectable public var checkLineWidth: CGFloat = 2.0 {
+    @IBInspectable open var checkLineWidth: CGFloat = 2.0 {
         didSet {
             layoutLayers()
         }
     }
     
     /// Color for the check mark. Default color is `UIColor.blackColor()`.
-    @IBInspectable public var checkColor: UIColor = UIColor.blackColor() {
+    @IBInspectable open var checkColor: UIColor = UIColor.black {
         didSet {
             colorLayers()
         }
@@ -28,7 +28,7 @@ public class CheckboxButton: UIControl {
     
     /// Line width for the bounding container of the check mark.
     /// Default value is 2.
-    @IBInspectable public var containerLineWidth: CGFloat = 2.0 {
+    @IBInspectable open var containerLineWidth: CGFloat = 2.0 {
         didSet {
             layoutLayers()
         }
@@ -36,7 +36,7 @@ public class CheckboxButton: UIControl {
     
     /// Color for the bounding container of the check mark.
     /// Default color is `UIColor.blackColor()`.
-    @IBInspectable public var containerColor: UIColor = UIColor.blackColor() {
+    @IBInspectable open var containerColor: UIColor = UIColor.black {
         didSet {
             colorLayers()
         }
@@ -44,7 +44,7 @@ public class CheckboxButton: UIControl {
     
     /// If set to `true`, the bounding container of the check mark will be a circle rather than a box.
     /// Default value is false
-    @IBInspectable public var circular: Bool = false {
+    @IBInspectable open var circular: Bool = false {
         didSet {
             layoutLayers()
         }
@@ -52,14 +52,14 @@ public class CheckboxButton: UIControl {
     
     /// If set to `true`, the container gets a fill color similar to the `containerColor` property.
     /// Default value is `false`.
-    @IBInspectable public var containerFillsOnToggleOn: Bool = false {
+    @IBInspectable open var containerFillsOnToggleOn: Bool = false {
         didSet {
             colorLayers()
         }
     }
     
     /// A Boolean value that determines the off/on state of the checkbox. If `true`, the checkbox is checked.
-    @IBInspectable public var on: Bool = false {
+    @IBInspectable open var on: Bool = false {
         didSet {
             colorLayers()
         }
@@ -94,7 +94,7 @@ public class CheckboxButton: UIControl {
     
     internal var containerPath: UIBezierPath {
         if circular {
-            return UIBezierPath(ovalInRect: containerFrame)
+            return UIBezierPath(ovalIn: containerFrame)
         } else {
             return UIBezierPath(rect: containerFrame)
         }
@@ -104,7 +104,7 @@ public class CheckboxButton: UIControl {
         
         // Add an offset for circular checkbox
         let inset = containerLineWidth / 2
-        let innerRect = CGRectInset(containerFrame, inset, inset)
+        let innerRect = containerFrame.insetBy(dx: inset, dy: inset)
         
         // Create check path
         let path = UIBezierPath()
@@ -114,9 +114,9 @@ public class CheckboxButton: UIControl {
         let x = origin.x
         let y = origin.y
         
-        path.moveToPoint(CGPoint(x: x + (7 * unit), y: y + (18 * unit)))
-        path.addLineToPoint(CGPoint(x: x + (14 * unit), y: y + (25 * unit)))
-        path.addLineToPoint(CGPoint(x: x + (27 * unit), y: y + (10 * unit)))
+        path.move(to: CGPoint(x: x + (7 * unit), y: y + (18 * unit)))
+        path.addLine(to: CGPoint(x: x + (14 * unit), y: y + (25 * unit)))
+        path.addLine(to: CGPoint(x: x + (27 * unit), y: y + (10 * unit)))
         
         return path
     }
@@ -128,7 +128,7 @@ public class CheckboxButton: UIControl {
         super.init(coder: aDecoder)
     }
     
-    public override func awakeFromNib() {
+    open override func awakeFromNib() {
         customInitialization()
     }
     
@@ -151,7 +151,7 @@ public class CheckboxButton: UIControl {
     
     func customInitialization() {
         // Initial colors
-        checkLayer.fillColor = UIColor.clearColor().CGColor
+        checkLayer.fillColor = UIColor.clear.cgColor
         
         // Color and layout layers
         colorLayers()
@@ -163,7 +163,7 @@ public class CheckboxButton: UIControl {
     }
     
     // MARK: Layout
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         
         // Also layout the layers when laying out subviews
@@ -171,63 +171,63 @@ public class CheckboxButton: UIControl {
     }
     
     // MARK: Layout layers
-    private func layoutLayers() {
+    fileprivate func layoutLayers() {
         // Set frames, line widths and paths for layers
         containerLayer.frame = bounds
         containerLayer.lineWidth = containerLineWidth
-        containerLayer.path = containerPath.CGPath
+        containerLayer.path = containerPath.cgPath
         
         checkLayer.frame = bounds
         checkLayer.lineWidth = checkLineWidth
-        checkLayer.path = checkPath.CGPath
+        checkLayer.path = checkPath.cgPath
     }
     
     // MARK: Color layers
-    private func colorLayers() {
-        containerLayer.strokeColor = containerColor.CGColor
+    fileprivate func colorLayers() {
+        containerLayer.strokeColor = containerColor.cgColor
         
         // Set colors based on 'on' property
         if on {
-            containerLayer.fillColor = containerFillsOnToggleOn ? containerColor.CGColor : UIColor.clearColor().CGColor
-            checkLayer.strokeColor = checkColor.CGColor
+            containerLayer.fillColor = containerFillsOnToggleOn ? containerColor.cgColor : UIColor.clear.cgColor
+            checkLayer.strokeColor = checkColor.cgColor
         } else {
-            containerLayer.fillColor = UIColor.clearColor().CGColor
-            checkLayer.strokeColor = UIColor.clearColor().CGColor
+            containerLayer.fillColor = UIColor.clear.cgColor
+            checkLayer.strokeColor = UIColor.clear.cgColor
         }
     }
     
     // MARK: Touch tracking
     
-    public override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
-        super.beginTrackingWithTouch(touch, withEvent: event)
+    open override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        super.beginTracking(touch, with: event)
         
         return true
     }
     
-    public override func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
-        super.continueTrackingWithTouch(touch, withEvent: event)
+    open override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        super.continueTracking(touch, with: event)
         
         return true
     }
     
-    public override func endTrackingWithTouch(touch: UITouch?, withEvent event: UIEvent?) {
-        super.endTrackingWithTouch(touch, withEvent: event)
+    open override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
+        super.endTracking(touch, with: event)
         
-        guard let touchLocationInView = touch?.locationInView(self) else {
+        guard let touchLocationInView = touch?.location(in: self) else {
             return
         }
         
-        let offset = self.dynamicType.validBoundsOffset
+        let offset = type(of: self).validBoundsOffset
         let validBounds = CGRect(x: bounds.origin.x - offset, y: bounds.origin.y - offset, width: bounds.width + (2 * offset), height: bounds.height + (2 * offset))
         
         if validBounds.contains(touchLocationInView) {
             on = !on
-            sendActionsForControlEvents([UIControlEvents.ValueChanged])
+            sendActions(for: [UIControlEvents.valueChanged])
         }
     }
     
     // MARK: Interface builder
-    public override func prepareForInterfaceBuilder() {
+    open override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         
         customInitialization()
