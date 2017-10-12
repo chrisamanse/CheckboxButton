@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "CheckboxButton"
-  s.version      = "3.1.0"
+  s.version      = "3.1.1"
   s.summary      = "A checkbox button UI component for iOS built with Swift"
   s.description  = "A checkbox button UI component for iOS built with Swift. `CheckboxButton` is simply a subclass of `UIControl`."
 
@@ -15,6 +15,6 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/chrisamanse/CheckboxButton.git", :tag => "#{s.version}" }
   s.source_files  = "CheckboxButton", "CheckboxButton/**/*.{h,swift}"
   s.requires_arc = true
-  
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
+
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
 end
