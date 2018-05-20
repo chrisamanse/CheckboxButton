@@ -26,7 +26,7 @@ This project can be installed in different ways:
 
 `CheckboxButton` can be used in two different ways:
   - Interface Builder
-    - Simply change the class of the `UIButton` to `CheckboxButton`.
+    - Simply change the class of the `UIView` to `CheckboxButton`.
   - Code
     - Use the initializer: `init(frame: CGRect)`
 
@@ -51,6 +51,6 @@ checkbox.on = false // Set to false to uncheck
 
 # License
 
-Copyright (c) 2016 Joe Christopher Paul Amanse
+Copyright (c) 2018 Joe Christopher Paul Amanse
 
 This software is distributed under the [MIT License](./LICENSE).
